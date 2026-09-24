@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aurora Player — A premium web-based music player with playlist management, shuffle, repeat, favorites, and stunning visuals.">
+  <title>Aurora Player — Music Player</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="app-background"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- Main App -->
+  <div class="app">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="app-logo">
+        <div class="logo-icon">🎵</div>
+        <h1>Aurora Player</h1>
+      </div>
+      <div class="header-actions">
+        <button class="header-btn" id="btn-shortcuts" title="Keyboard Shortcuts" aria-label="Keyboard Shortcuts">
+          ⌨️
+        </button>
+        <button class="header-btn" id="btn-favorites-filter" title="Show Favorites" aria-label="Show Favorites">
+          ♥
+        </button>
+        <button class="header-btn" id="btn-autoplay" title="Autoplay" aria-label="Toggle Autoplay">
+          ▶
+        </button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="app-content">
+
+      <!-- Player Section -->
+      <section class="player-section" aria-label="Music Player">
+
+        <!-- Album Art -->
+        <div class="album-art-container" id="album-art-container">
+          <div class="vinyl-disc" id="vinyl-disc"></div>
+          <div class="album-art" id="album-art">
+            <img src="assets/album_midnight_drive.jpg" alt="Album Artwork" id="album-art-img">
+          </div>
+          <div class="album-art-glow" id="album-art-glow"></div>
+        </div>
+
+        <!-- Track Info -->
+        <div class="track-info">
+          <h2 class="track-title" id="track-title">Midnight Drive</h2>
+          <p class="track-artist" id="track-artist">The Neon Outlaws</p>
+          <p class="track-album" id="track-album">Synthwave Anthem</p>
+        </div>
+
+        <!-- Audio Visualizer Waves -->
+        <div class="visualizer" id="visualizer" aria-hidden="true">
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+          <span class="viz-bar"></span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar-wrapper" id="progress-wrapper" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-buffered" id="progress-buffered"></div>
+            <div class="progress-bar" id="progress-bar">
+              <div class="progress-thumb"></div>
+            </div>
+          </div>
+          <div class="progress-times">
+            <span id="time-current">0:00</span>
+            <span id="time-duration">0:00</span>
+          </div>
+        </div>
+
+        <!-- Player Controls -->
+        <div class="player-controls">
+          <button class="control-btn secondary" id="btn-shuffle" title="Shuffle (S)" aria-label="Toggle Shuffle">
+            🔀
+          </button>
+          <button class="control-btn skip" id="btn-prev" title="Previous (P)" aria-label="Previous Track">
+            ⏮
+          </button>
+          <button class="control-btn play-btn" id="btn-play" title="Play (Space)" aria-label="Play">
+            ▶
+          </button>
+          <button class="control-btn skip" id="btn-next" title="Next (N)" aria-label="Next Track">
+            ⏭
+          </button>
+          <button class="control-btn secondary" id="btn-repeat" title="Repeat (R)" aria-label="Toggle Repeat">
+            🔁
+          </button>
+        </div>
+
+        <!-- Extra Controls -->
+        <div class="extra-controls">
+          <button class="favorite-btn" id="btn-favorite" title="Add to Favorites" aria-label="Toggle Favorite">
+            ♡
+          </button>
+          
+          <!-- Speed Control -->
+          <div class="speed-control">
+            <button class="speed-btn" id="btn-speed" title="Playback Speed" aria-label="Change Playback Speed">
+              1.0x
+            </button>
+          </div>
+
+          <div class="volume-control">
+            <button class="volume-btn" id="btn-mute" title="Mute (M)" aria-label="Toggle Mute">
+              🔊
+            </button>
+            <div class="volume-slider-wrapper" id="volume-wrapper">
+              <div class="volume-fill" id="volume-fill"></div>
+              <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="80" aria-label="Volume">
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Playlist Section -->
+      <section class="playlist-section" aria-label="Playlist">
+        <div class="playlist-header">
+          <div class="playlist-title-row">
+            <h2>Playlist</h2>
+            <div class="playlist-tabs">
+              <button class="playlist-tab active" id="tab-all" data-tab="all">All</button>
+              <button class="playlist-tab" id="tab-favorites" data-tab="favorites">Favorites</button>
+            </div>
+          </div>
+          <!-- Search Box -->
+          <div class="playlist-search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="playlist-search" placeholder="Search track or artist..." aria-label="Search Playlist">
+            <button class="search-clear-btn" id="btn-clear-search" title="Clear search" aria-label="Clear Search">&times;</button>
+          </div>
+        </div>
+        <div class="track-list" id="track-list">
+          <!-- Tracks rendered by JS -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="modal-overlay" id="shortcuts-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">⌨️ Keyboard Shortcuts</h3>
+        <button class="modal-close" id="btn-close-modal" aria-label="Close shortcuts dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcut-row">
+          <span>Play / Pause</span>
+          <kbd>Space</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Next Track</span>
+          <kbd>N</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Previous Track</span>
+          <kbd>P</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Seek Forward 5s</span>
+          <kbd>→</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Seek Backward 5s</span>
+          <kbd>←</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Volume Up</span>
+          <kbd>↑</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Volume Down</span>
+          <kbd>↓</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Mute / Unmute</span>
+          <kbd>M</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Toggle Shuffle</span>
+          <kbd>S</kbd>
+        </div>
+        <div class="shortcut-row">
+          <span>Cycle Repeat</span>
+          <kbd>R</kbd>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Audio Element -->
+  <audio id="audio-player" preload="metadata"></audio>
+
+  <!-- Scripts -->
+  <script src="js/player.js"></script>
+  <script src="js/playlist.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
