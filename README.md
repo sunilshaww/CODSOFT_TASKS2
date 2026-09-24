@@ -10,6 +10,15 @@
 
 ---
 
+## 📸 Screenshots & UI Preview
+
+<p align="center">
+  <img src="assets/preview_midnight_drive.png" alt="Midnight Drive - Aurora Player" width="49%">
+  <img src="assets/preview_ocean_waves.png" alt="Ocean Waves - Aurora Player" width="49%">
+</p>
+
+---
+
 ## ✨ Features
 
 ### 🎧 Core Playback Controls
@@ -81,7 +90,9 @@ CODSOFT_TASKS2/
 │   ├── album_neon_lights.jpg        # Custom artwork
 │   ├── album_ocean_waves.jpg        # Custom artwork
 │   ├── album_starlight.jpg          # Custom artwork
-│   └── album_sunset_boulevard.jpg   # Custom artwork
+│   ├── album_sunset_boulevard.jpg   # Custom artwork
+│   ├── preview_midnight_drive.png   # UI screenshot (Midnight Drive)
+│   └── preview_ocean_waves.png      # UI screenshot (Ocean Waves)
 ├── css/
 │   └── style.css                    # Glassmorphism design system & responsive styling
 ├── js/
